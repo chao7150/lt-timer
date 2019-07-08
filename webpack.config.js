@@ -25,6 +25,18 @@ module.exports = {
           }
         ]
       },
+      {
+        test: /\.s?css$/,
+        include: path.join(__dirname, "src"),
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          }
+        ]
+      },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: "pre",

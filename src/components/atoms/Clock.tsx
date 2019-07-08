@@ -14,5 +14,5 @@ export const formatMs = (remainingMs: number): string => {
 };
 
 export const Clock = ({ remainingTimeMs }: ClockProps) => {
-  return <div>{formatMs(remainingTimeMs)}</div>;
+  return <p className="clock">{formatMs(remainingTimeMs)}</p>;
 };
