@@ -1,16 +1,23 @@
 import * as React from "react";
 import { ControllButton } from "../atoms/ControllButton";
 
-const mockOnClick = (
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-): void => console.log(e);
+interface ControllAreaProps {
+  timerState: "STOP" | "COUNTING";
+  startOnClick: () => void;
+  stopOnClick: () => void;
+  resetOnClick: () => void;
+}
 
-export const ControllArea = () => {
+export const ControllArea = (props: ControllAreaProps) => {
   return (
     <div id="controllarea">
-      <ControllButton label="start" onClickFunc={mockOnClick} />
-      <ControllButton label="stop" onClickFunc={mockOnClick} />
-      <ControllButton label="reset" onClickFunc={mockOnClick} />
+      <ControllButton
+        label="start"
+        onClickFunc={props.startOnClick}
+        disabled={props.timerState === "COUNTING"}
+      />
+      <ControllButton label="stop" onClickFunc={props.stopOnClick} />
+      <ControllButton label="reset" onClickFunc={props.resetOnClick} />
     </div>
   );
 };
