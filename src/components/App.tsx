@@ -3,7 +3,7 @@ import "../styles/all.css";
 import { Clock } from "./atoms/Clock";
 import { ControllArea } from "./molucules/ControllArea";
 import { observer, inject } from "mobx-react";
-import { ObservableTimeStore } from "../stores/TimeStore";
+import { ObservableTimeStore, TimerState } from "../stores/TimeStore";
 import { action } from "mobx";
 import { DEFAULT_TIME } from "../consts";
 
@@ -14,13 +14,19 @@ interface Props {
 export const App = observer((props: Props) => {
   const store = props.store;
   const handleStartTimer = () => {
-    if (store.timerState === "COUNTING") {
+    if (store.timerState === TimerState.Counting) {
+      return;
+    }
+    if (store.remainingTimeMs <= 0) {
       return;
     }
     store.timerId = setInterval(() => {
       store.remainingTimeMs -= 1000;
+      if (store.remainingTimeMs <= 0) {
+        clearInterval(store.timerId!);
+        store.timerId = undefined;
+      }
     }, 1000);
-    store.timerState = "COUNTING";
   };
   const handleStopTimer = () => {
     if (!store.timerId) {
@@ -28,7 +34,6 @@ export const App = observer((props: Props) => {
     }
     clearInterval(store.timerId);
     store.timerId = undefined;
-    store.timerState = "STOP";
   };
 
   return (

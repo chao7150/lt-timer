@@ -1,5 +1,4 @@
 import * as React from "react";
-import { tsPropertySignature } from "@babel/types";
 
 interface ButtonProps {
   label: string;
