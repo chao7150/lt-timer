@@ -12,12 +12,11 @@ interface ControllAreaProps {
 export const ControllArea = (props: ControllAreaProps) => {
   return (
     <div id="controllarea">
-      <ControllButton
-        label="start"
-        onClickFunc={props.startOnClick}
-        disabled={props.timerState === TimerState.Counting}
-      />
-      <ControllButton label="stop" onClickFunc={props.stopOnClick} />
+      {props.timerState === TimerState.Stop ? (
+        <ControllButton label="start" onClickFunc={props.startOnClick} />
+      ) : (
+        <ControllButton label="stop" onClickFunc={props.stopOnClick} />
+      )}
       <ControllButton label="reset" onClickFunc={props.resetOnClick} />
     </div>
   );
